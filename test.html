@@ -1,4 +1,10 @@
-﻿<!-- SCM Music Player http://scmplayer.co -->
+﻿
+
+<!DOCTYPE html>
+<<head>
+	<meta charset="utf-8">
+
+<!-- SCM Music Player http://scmplayer.co -->
 <!-- <script type="text/javascript" src="http://scmplayer.co/script.js" 
 data-config="{'skin':'http://static.tumblr.com/ybdgrst/QnBmh1mm1/cruze_skin.css','volume':60,'autoplay':false,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':false,'playlist':'https://www.youtube.com/feeds/videos.xml?channel_id=UCQsLuQJupY5RiwMpEpFaswQ'}" ></script> -->
 <!-- SCM Music Player script end -->
@@ -7,3 +13,54 @@ data-config="{'skin':'http://static.tumblr.com/ybdgrst/QnBmh1mm1/cruze_skin.css'
 <script type="text/javascript" src="http://scmplayer.co/script.js" 
 data-config="{'skin':'skins/scmOrange/skin.css','volume':50,'autoplay':false,'shuffle':false,'repeat':1,'placement':'top','showplaylist':true,'playlist':[{'title':'test','url':'https://soundcloud.com/farpras/history-maker-full-version-dean-fujioka-instrumental-remix'}]}" ></script>
 <!-- SCM Music Player script end -->
+
+</head>
+
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'M7lc1UVf-VE',
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+  </body>
+</html>
