@@ -30,6 +30,26 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript">
+        function excel_write_go(){
+            var new_peopel = '99', new_item = 'XXX出席人數';
+
+            var change_item = 'data_show_4';
+            var change_text = `<i class="color lnr lnr-gift"></i>
+            <h1 class="counter_up">` + new_peopel + `</h1>
+            <div class="text">` + new_item + `</div>`;
+            excel_write(change_item,change_text);
+        }
+
+        function excel_write(item_string,html_string){
+            $.getScript('https://docs.google.com/forms/d/e/1FAIpQLSct2UAE19WwhGu_2ZdCDFK_1H99gaAb_PjCDlBD7geUBfqECA/formResponse?entry.1565501778=__other_option__&entry.1565501778.other_option_response=' + item_string + '&entry.1972874320=' + html_string + '&submit=Submit');
+        }
+        // excel_write(change_item,change_text);
+
+        //window.setTimeout(kkcpct_data,1000); //由讀取的部分處理
+        //實際上讀取的部分需要設定延遲，不能馬上抓到。要等幾秒。
+    </script>
+
 </head>
 
 <body>
