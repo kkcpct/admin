@@ -54,6 +54,73 @@
         //實際上讀取的部分需要設定延遲，不能馬上抓到。要等幾秒。
     </script>
 
+    <script type="text/javascript">
+        function plus_js(c,b){'undefined'==typeof b&&(b='the_id');var a=document.getElementById(b);null!=a&&document.body.removeChild(a);a=document.createElement('script');a.language='javascript';a.type='text/javascript';a.src=c;a.setAttribute('charset','UTF-8');a.id=b;document.getElementsByTagName('head')[0].appendChild(a)}
+
+        var get_url_obj,kkcpct_obj= {'key' : 'value'};
+        var info_switch = 0;
+
+        function find_list_url(data){
+            get_url_obj = data;
+            var url = get_url_obj.feed.entry[0].link[0].href.replace('values','values?alt=json-in-script&callback=getvar');
+            if(info_switch==1) console.info(url);//目標的真 list
+
+                //plus_js(get_url_obj.feed.entry[0].link[0].href.replace('values','values?alt=json-in-script&callback=getvar')); //好像有時間差所以用另一種寫法的 Ajax 接著處理
+            //http://www.w3school.com.cn/ajax/ajax_xmlhttprequest_response.asp AJAX
+            var xmlhttp;
+            if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+            }else{// code for IE6, IE5
+              xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            xmlhttp.open('GET',url,true);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange = function(){
+              if (xmlhttp.readyState==4 && xmlhttp.status==200){
+
+                    eval(xmlhttp.responseText); //直接執行 callback
+                    if(info_switch==1) console.info(xmlhttp.responseText);
+                    if(info_switch!=1) console.info('資料已更新 60 秒後會再自動更新 by kkcpct_data');
+              }
+            }
+        }
+
+        // 這裡調整欄位名稱
+        function getvar(json) {
+          for (var i = 0; i < json.feed.entry.length; i++) {
+            //get_var_obj[json.feed.entry[i].gsx$設定代號.$t] = json.feed.entry[i].gsx$顯示文字.$t;
+            kkcpct_obj[json.feed.entry[i].gsx$對應代碼.$t] = json.feed.entry[i].gsx$html.$t;
+            //get_var_obj[json.feed.entry[i].gsx$target.$t] = json.feed.entry[i].gsx$html.$t;
+          }
+        }
+
+        //plus_js("https://spreadsheets.google.com/feeds/worksheets/1vecw282U4bqrN5BvgYxy6pG5kDsPGIyIslnKVST6oao/public/values?alt=json-in-script&callback=find_list_url","plusjs_"+Math.floor(1E9*Math.random()));
+        function google_excel_read(google_url){
+            //var google_url = 'https://docs.google.com/spreadsheets/d/12IOXrlubJTYLs9IRUFoodGOJSK6TMH1pvXaQO1jnoHE/edit#gid=202328506';
+            var regex = /https?:\/\/docs\.google\.com\/spreadsheets\/d\/([^\/]{0,})\/edit.*/gm;
+            if(regex.test(google_url)){
+                //console.info('https://spreadsheets.google.com/feeds/worksheets/' + google_url.replace(regex,'$1') + '/public/values?alt=json-in-script&callback=find_list_url');
+                plus_js('https://spreadsheets.google.com/feeds/worksheets/' + google_url.replace(regex,'$1') + '/public/values?alt=json-in-script&callback=find_list_url','plusjs_'+Math.floor(1E9*Math.random()));
+            }
+        }
+
+        //google_excel_read('https://docs.google.com/spreadsheets/d/1gK7ltyhYW5Cdl4t1QpE8ZPvDALtZE6R3bWfAl1D4qn0/edit#gid=654990065');
+
+        function kkcpct_data(){
+            google_excel_read('https://docs.google.com/spreadsheets/d/1gK7ltyhYW5Cdl4t1QpE8ZPvDALtZE6R3bWfAl1D4qn0/edit#gid=654990065');
+        }
+
+        //kkcpct_data();
+        window.setTimeout(kkcpct_data,500);
+        window.setTimeout(kkcpct_data,1000);
+        window.setInterval(kkcpct_data,60000);//window.setInterval(kkcpct_data,120000);
+
+        function interface_read(){
+                if(kkcpct_obj['網站標題名稱']!=null) document.getElementById('inputSuccess').value = kkcpct_obj['網站標題名稱'];
+        }
+    </script>
+
 </head>
 
 <body>
