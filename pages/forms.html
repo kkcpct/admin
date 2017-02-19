@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-tw">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Admin</title>
 
     <!-- Bootstrap Core CSS -->
     <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -33,12 +33,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+
     <script type="text/javascript">
         function excel_write_go(){
             var new_peopel = '99', new_item = 'XXX出席人數';
 
-            var change_item = 'data_show_4';
+            var change_item = 'data_show_3';
             var change_text = `<i class="color lnr lnr-gift"></i>
             <h1 class="counter_up">` + new_peopel + `</h1>
             <div class="text">` + new_item + `</div>`;
@@ -66,6 +66,9 @@
                         <div class="panel-body">
                             <div class="col-lg-12">
                                <form role="form">
+                                            <div class="form-group has-success">
+                                                <input type="text" class="form-control" id="inputSuccess" placeholder="網站標題名稱">
+                                            </div>
                                             <div class="form-group">
                                                 <label>Text area</label>
                                                 <textarea class="form-control" rows="3" placeholder="Enter text"></textarea>
@@ -80,8 +83,8 @@
                                                     <option>5</option>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Submit Button</button>
-                                            <button type="reset" class="btn btn-default">Reset Button</button>
+                                            <button type="submit" class="btn btn-primary">更新介面文字</button>
+                                            <button type="reset" class="btn btn-default">重設</button>
                                 </form>
                             </div>
                         </div>
