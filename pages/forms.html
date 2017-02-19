@@ -119,7 +119,11 @@
         function interface_read(){
                 if(kkcpct_obj['網站標題名稱']!=null) document.getElementById('web_title').value = kkcpct_obj['網站標題名稱'];
                 if(kkcpct_obj['welcome_text']!=null) document.getElementById('welcome_text').value = kkcpct_obj['welcome_text'];
-                if(kkcpct_obj['index_big_head_text']!=null) document.getElementById('index_big_head_text').value = kkcpct_obj['index_big_head_text'];
+
+
+                if(kkcpct_obj['index_big_head_text']!=null) document.getElementById('index_big_head_text').value = kkcpct_obj['index_big_head_text'].replace(/<a href='http:\/\/blog.kkcpct.org\' style=\'color: #fff\' class=\"nolight\">/,'').replace('</a>','');;
+
+                
                 //if(kkcpct_obj['']!=null) document.getElementById('').value = kkcpct_obj[''];
                 if(kkcpct_obj['cd_1']!=null) document.getElementById('cd_1').value = kkcpct_obj['cd_1'];
                 if(kkcpct_obj['cd_2']!=null) document.getElementById('cd_2').value = kkcpct_obj['cd_2'];
